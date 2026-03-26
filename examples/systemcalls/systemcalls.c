@@ -115,7 +115,37 @@ bool do_exec_redirect(const char *outputfile, int count, ...)
  *
 */
 
+    pid_t pid = fork();
+
+    if (pid == -1) {
+        return false;
+    } else if (pid == 0) {
+        // child process
+        int fd = open(outputfile, O_WRONLY|O_TRUNC|O_CREAT, 0644);
+        if (fd < 0) {
+            perror("open");
+            exit(1);
+        } 
+         // call dup2
+        dup2(fd, 1);
+        // close(fd)
+        close(fd);
+        // execv
+        execv(command[0], command);
+        // anything after execv only runs if it failed
+        exit(1);
+    } else {
+        // parent process
+        int status;
+        waitpid(pid, &status, 0);
+        // inspect status
+        if (WIFEXITED(status) && WEXITSTATUS(status) == 0) {
+            va_end(args);
+            return true;
+        }
+    }
+
     va_end(args);
 
-    return true;
+    return false;
 }

@@ -6,6 +6,7 @@
 #include <unistd.h> // for fork, execv
 #include <sys/wait.h> // for waitpid()
 #include <sys/types.h> // for pid_t
+#include <fcntl.h>
 
 
 bool do_system(const char *command);
