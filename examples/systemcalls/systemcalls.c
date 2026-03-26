@@ -126,11 +126,12 @@ bool do_exec_redirect(const char *outputfile, int count, ...)
             perror("open");
             exit(1);
         } 
-         // call dup2
-        dup2(fd, 1);
-        // close(fd)
+        // use STDOUT_FILENO instead of '1'
+        if (dup2(fd, STDOUT_FILENO) < 0) { 
+            perror("dup2");
+            exit(1);
+        }
         close(fd);
-        // execv
         execv(command[0], command);
         // anything after execv only runs if it failed
         exit(1);
