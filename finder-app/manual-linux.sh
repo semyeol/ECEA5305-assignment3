@@ -110,9 +110,11 @@ cp ${FINDER_APP_DIR}/writer ${OUTDIR}/rootfs/home/
 
 # TODO: Copy the finder related scripts and executables to the /home directory
 # on the target rootfs
+mkdir -p ${OUTDIR}/rootfs/home/conf
+
 cp ${FINDER_APP_DIR}/finder.sh ${OUTDIR}/rootfs/home/
-cp ${FINDER_APP_DIR}/conf/username.txt ${OUTDIR}/rootfs/home/
-cp ${FINDER_APP_DIR}/conf/assignment.txt ${OUTDIR}/rootfs/home/
+cp ${FINDER_APP_DIR}/conf/username.txt ${OUTDIR}/rootfs/home/conf
+cp ${FINDER_APP_DIR}/conf/assignment.txt ${OUTDIR}/rootfs/home/conf
 cp ${FINDER_APP_DIR}/finder-test.sh ${OUTDIR}/rootfs/home/
 cp ${FINDER_APP_DIR}/writer.sh ${OUTDIR}/rootfs/home/
 # finder-test needs to reference conf/assignment.txt instead of ../conf/assignment.txt
