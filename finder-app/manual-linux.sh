@@ -114,6 +114,7 @@ cp ${FINDER_APP_DIR}/finder.sh ${OUTDIR}/rootfs/home/
 cp ${FINDER_APP_DIR}/conf/username.txt ${OUTDIR}/rootfs/home/
 cp ${FINDER_APP_DIR}/conf/assignment.txt ${OUTDIR}/rootfs/home/
 cp ${FINDER_APP_DIR}/finder-test.sh ${OUTDIR}/rootfs/home/
+cp ${FINDER_APP_DIR}/writer.sh ${OUTDIR}/rootfs/home/
 # finder-test needs to reference conf/assignment.txt instead of ../conf/assignment.txt
 # use sed -i (edit file in place) s|old|new
 sed -i 's|\.\./conf/assignment.txt|conf/assignment.txt|' ${OUTDIR}/rootfs/home/finder-test.sh
