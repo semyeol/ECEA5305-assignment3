@@ -123,6 +123,8 @@ sed -i 's|\.\./conf/assignment.txt|conf/assignment.txt|' ${OUTDIR}/rootfs/home/f
 
 cp ${FINDER_APP_DIR}/autorun-qemu.sh ${OUTDIR}/rootfs/home/
 
+chmod +x ${OUTDIR}/rootfs/home/*.sh
+
 # TODO: Chown the root directory
 # chown [flags] owner:group path
 sudo chown -R root:root ${OUTDIR}/rootfs 
