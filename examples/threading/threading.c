@@ -22,7 +22,7 @@ void* threadfunc(void* thread_param)
         return thread_param;
     }
     usleep(thread_func_args->sleep_after_lock * 1000); // sim the thread holding the mutex while doing work with shared resource
-    int rc = pthread_mutex_unlock(thread_func_args->mutex);
+    rc = pthread_mutex_unlock(thread_func_args->mutex);
     if (rc != 0) {
         thread_func_args->thread_complete_success = false;
         return thread_param;
@@ -44,6 +44,19 @@ bool start_thread_obtaining_mutex(pthread_t *thread, pthread_mutex_t *mutex,int 
      *
      * See implementation details in threading.h file comment block
      */
+    // allocate memory and cast 
+    struct thread_data *data = (struct thread_data *) malloc(sizeof(struct thread_data));
+    if (data == NULL) return false;
+
+    // populate data with actual values
+    data->mutex = mutex;
+    data->sleep_before_lock = wait_to_obtain_ms;
+    data->sleep_after_lock = wait_to_release_ms;
+
+    // create the thread
+    int rc = pthread_create(thread, NULL, threadfunc, data);
+    if (rc == 0) return true;
+
     return false;
 }
 
